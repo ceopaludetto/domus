@@ -2,13 +2,13 @@ import type { ReactNode } from "react";
 
 import { useMemo, useContext, createContext, useCallback, useState } from "react";
 
-type SidebarContextProperties = { open: boolean; toggleSidebar: (value?: boolean) => void };
+type ISidebarContextProps = { open: boolean; toggleSidebar: (value?: boolean) => void };
 
-const SidebarContext = createContext<SidebarContextProperties | undefined>(undefined);
+const SidebarContext = createContext<ISidebarContextProps | undefined>(undefined);
 
-type ISidebarProviderProperties = { children: ReactNode };
+type ISidebarProviderProps = { children: ReactNode };
 
-export function SidebarProvider({ children }: ISidebarProviderProperties) {
+export function SidebarProvider({ children }: ISidebarProviderProps) {
   const [open, setOpen] = useState(false);
 
   const toggleSidebar = useCallback((value?: boolean) => {

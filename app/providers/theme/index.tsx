@@ -7,12 +7,12 @@ import { useState } from "react";
 
 import { createApplicationTheme } from "./create";
 
-interface IApplicationThemeProviderProperties {
+interface IApplicationThemeProviderProps {
   children: ReactNode;
   initialColorMode: ColorMode;
 }
 
-export function ApplicationThemeProvider({ children, initialColorMode }: IApplicationThemeProviderProperties) {
+export function ApplicationThemeProvider({ children, initialColorMode }: IApplicationThemeProviderProps) {
   const [currentTheme, setCurrentTheme] = useState(createApplicationTheme(initialColorMode));
   const isDark = useMediaQuery("(prefers-color-scheme: dark)", { defaultMatches: initialColorMode === "dark" });
 

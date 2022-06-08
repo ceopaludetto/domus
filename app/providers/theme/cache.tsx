@@ -7,26 +7,24 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
 
 export const createApplicationCache = (): EmotionCache => createCache({ key: "domus" });
 
-interface ICacheContextProperties {
+interface ICacheContextProps {
   reset(): void;
 }
 
-const CacheContext: Context<ICacheContextProperties | undefined> = createContext<ICacheContextProperties | undefined>(
-  undefined
-);
+const CacheContext: Context<ICacheContextProps | undefined> = createContext<ICacheContextProps | undefined>(undefined);
 
-interface IApplicationCacheProviderProperties {
+interface IApplicationCacheProviderProps {
   children: ReactNode;
 }
 
-export function ApplicationCacheProvider({ children }: IApplicationCacheProviderProperties) {
+export function ApplicationCacheProvider({ children }: IApplicationCacheProviderProps) {
   const [cache, setCache] = useState(createApplicationCache());
 
   const reset = useCallback(() => {
     setCache(createApplicationCache());
   }, []);
 
-  const value = useMemo<ICacheContextProperties>(() => ({ reset }), [reset]);
+  const value = useMemo<ICacheContextProps>(() => ({ reset }), [reset]);
 
   return (
     <CacheContext.Provider value={value}>
@@ -35,4 +33,4 @@ export function ApplicationCacheProvider({ children }: IApplicationCacheProvider
   );
 }
 
-export const useApplicationCache = (): ICacheContextProperties | undefined => useContext(CacheContext);
+export const useApplicationCache = (): ICacheContextProps | undefined => useContext(CacheContext);

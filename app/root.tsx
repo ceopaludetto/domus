@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-const App: FC = withEmotionCache((properties, emotionCache) => {
+const App: FC = withEmotionCache((props, emotionCache) => {
   const cache = useApplicationCache();
   const theme = useTheme();
 

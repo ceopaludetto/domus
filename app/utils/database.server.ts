@@ -6,7 +6,7 @@ let prisma: PrismaClient;
 
 declare global {
   // eslint-disable-next-line vars-on-top, no-var, @typescript-eslint/naming-convention
-  var __database__: PrismaClient;
+  var __db__: PrismaClient;
 }
 
 if (process.env.NODE_ENV === "production") {

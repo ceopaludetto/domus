@@ -1,3 +1,3 @@
-export function immediate(function_: () => void) {
-  window.setTimeout(function_, 0);
+export function immediate(callback: () => void) {
+  window.setTimeout(callback, 0);
 }

@@ -1,7 +1,7 @@
 import { Tooltip as MuiTooltip, tooltipClasses, styled } from "@mui/material";
 
-export const Tooltip = styled<typeof MuiTooltip>(({ className, ...properties }) => (
-  <MuiTooltip {...properties} classes={{ popper: className, ...properties.classes }} />
+export const Tooltip = styled<typeof MuiTooltip>(({ className, ...props }) => (
+  <MuiTooltip {...props} classes={{ popper: className, ...props.classes }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.secondary.main,

@@ -25,10 +25,10 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function DashboardPlacesCreate() {
-  const { open, handleClose, handleTransitionEnd } = useFormDrawerController();
+  const drawer = useFormDrawerController();
 
   return (
-    <FormDrawer open={open} handleClose={handleClose} handleTransitionEnd={handleTransitionEnd}>
+    <FormDrawer {...drawer}>
       <Box sx={{ width: 500 }}>
         <ValidatedForm validator={PlaceValidator} method="post">
           <FormBuilder>
@@ -39,7 +39,7 @@ export default function DashboardPlacesCreate() {
               useSemanticTags={false}
               trailing={
                 <Tooltip describeChild title="Fechar">
-                  <IconButton onClick={handleClose}>
+                  <IconButton onClick={drawer.handleClose}>
                     <X />
                   </IconButton>
                 </Tooltip>
@@ -57,7 +57,7 @@ export default function DashboardPlacesCreate() {
             <SubmitButton size="large" fullWidth>
               Adicionar
             </SubmitButton>
-            <Button variant="outlined" size="large" fullWidth onClick={handleClose}>
+            <Button variant="outlined" size="large" fullWidth onClick={drawer.handleClose}>
               Voltar
             </Button>
           </FormBuilder>

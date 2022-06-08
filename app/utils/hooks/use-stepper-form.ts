@@ -7,7 +7,7 @@ import { useFormContext } from "remix-validated-form";
 
 import { immediate } from "../effects";
 
-type IUseStepperFormProperties = {
+type IUseStepperFormProps = {
   fields: string[][];
   formID?: string;
   initialValue?: number;
@@ -17,7 +17,7 @@ function isValidationError(data: any): data is ValidatorError {
   return typeof data === "object" && "fieldErrors" in data;
 }
 
-export function useStepperForm({ formID, initialValue = 0, fields }: IUseStepperFormProperties) {
+export function useStepperForm({ formID, initialValue = 0, fields }: IUseStepperFormProps) {
   const ref = useRef<HTMLFormElement>(null);
   const data = useActionData();
   const context = useFormContext(formID);

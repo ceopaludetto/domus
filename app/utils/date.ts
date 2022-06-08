@@ -13,4 +13,4 @@ export function fromDate(value: Date, format = "DD/MM/YYYY") {
   return date(value).format(format);
 }
 
-export { default as date } from "dayjs";
+export { date };
