@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Condominium {
+  id        String @id @default(cuid())
+  name      String
+  character String @default("#")
+
+  users  UsersOnCondominiums[]
+  rules  Rule[]
+  places Place[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model User {
+  id        String    @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String    @unique
+  password  String
+  phone     String?
+  birthDate DateTime?
+
+  condominiums UsersOnCondominiums[]
+  events       Event[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model UsersOnCondominiums {
+  condominium   Condominium @relation(fields: [condominiumID], references: [id])
+  condominiumID String
+
+  user   User   @relation(fields: [userID], references: [id])
+  userID String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@id([condominiumID, userID])
+}
+
+model Rule {
+  id          String @id @default(cuid())
+  description String
+
+  condominium   Condominium @relation(fields: [condominiumID], references: [id])
+  condominiumID String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Place {
+  id       String @id @default(cuid())
+  name     String
+  capacity Int
+
+  condominium   Condominium @relation(fields: [condominiumID], references: [id])
+  condominiumID String
+
+  events Event[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  name      String
+  open      Boolean  @default(false)
+  startDate DateTime
+  endDate   DateTime
+  estimated Int?
+
+  place   Place  @relation(fields: [placeID], references: [id])
+  placeID String
+
+  scheduler   User   @relation(fields: [schedulerID], references: [id])
+  schedulerID String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
