@@ -1,0 +1,38 @@
+{
+  "name": "@domus/utils",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/ceopaludetto/domus/tree/main/packages/utils#readme",
+  "bugs": {
+    "url": "https://github.com/ceopaludetto/domus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceopaludetto/domus.git"
+  },
+  "license": "MIT",
+  "author": "Carlos Eduardo <ceo.paludetto@gmail.com>",
+  "main": "build/index.js",
+  "module": "build/index.mjs",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsup --minify --sourcemap --dts --format esm,cjs",
+    "dev": "tsup --watch --dts",
+    "lint": "eslint \"lib/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.3"
+  },
+  "devDependencies": {
+    "@domus/settings": "^1.0.0",
+    "@rushstack/eslint-patch": "^1.1.3",
+    "eslint": "^8.18.0",
+    "tsup": "^6.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

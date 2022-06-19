@@ -1,0 +1,11 @@
+{
+  "extends": "@domus/settings/tsconfig",
+  "include": ["**/*.ts"],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"]
+    }
+  }
+}

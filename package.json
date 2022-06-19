@@ -1,59 +1,32 @@
 {
-  "name": "remix-template-remix",
-  "private": true,
+  "name": "domus",
+  "version": "1.0.0",
   "description": "",
-  "license": "",
-  "sideEffects": false,
-  "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
-    "start": "remix-serve build",
-    "lint": "eslint \"app/**/*.{ts,tsx}\" --fix"
+  "keywords": [],
+  "homepage": "https://github.com/ceopaludetto/domus#readme",
+  "bugs": {
+    "url": "https://github.com/ceopaludetto/domus/issues"
   },
-  "dependencies": {
-    "@emotion/cache": "^11.7.1",
-    "@emotion/react": "^11.9.0",
-    "@emotion/server": "^11.4.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/lab": "^5.0.0-alpha.84",
-    "@mui/material": "^5.8.2",
-    "@prisma/client": "^3.14.0",
-    "@remix-run/node": "^1.5.1",
-    "@remix-run/react": "^1.5.1",
-    "@remix-run/serve": "^1.5.1",
-    "@remix-validated-form/with-yup": "^2.0.1",
-    "ahooks": "^3.4.1",
-    "bcryptjs": "^2.4.3",
-    "dayjs": "^1.11.2",
-    "imask": "^6.4.2",
-    "lucide-react": "^0.57.0",
-    "material-ui-popup-state": "^3.1.1",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "remix-validated-form": "^4.5.0",
-    "tiny-invariant": "^1.2.0",
-    "yup": "^0.32.11"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceopaludetto/domus.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel --no-cache",
+    "lint": "turbo run lint"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.5.1",
-    "@remix-run/eslint-config": "^1.5.1",
-    "@types/bcryptjs": "^2.4.2",
-    "@types/react": "^18.0.10",
-    "@types/react-dom": "^18.0.5",
-    "eslint": "^8.16.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.30.0",
-    "eslint-plugin-react-hooks": "^4.5.0",
-    "eslint-plugin-typescript-sort-keys": "^2.1.0",
-    "prisma": "^3.14.0",
-    "typescript": "^4.7.2",
-    "utility-types": "^3.10.0"
-  },
-  "engines": {
-    "node": ">=14"
+    "lerna": "^5.1.4",
+    "prettier": "^2.7.1",
+    "prettier-plugin-packagejson": "^2.2.18",
+    "turbo": "^1.2.16",
+    "typescript": "^4.7.4"
   }
 }
