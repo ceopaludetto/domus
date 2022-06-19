@@ -19,6 +19,9 @@ app.use(
   })
 );
 
-app.listen(3333);
+app.listen(3333, () => {
+  // eslint-disable-next-line no-console
+  console.log("Server App started at http://localhost:3333");
+});
 
 export type AppRouter = typeof appRouter;

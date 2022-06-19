@@ -1,7 +1,9 @@
 {
   "name": "@domus/utils",
   "version": "1.0.0",
-  "description": "> TODO: description",
+  "private": true,
+  "description": "",
+  "keywords": [],
   "homepage": "https://github.com/ceopaludetto/domus/tree/main/packages/utils#readme",
   "bugs": {
     "url": "https://github.com/ceopaludetto/domus/issues"
@@ -19,7 +21,7 @@
     "build"
   ],
   "scripts": {
-    "build": "tsup --minify --sourcemap --dts --format esm,cjs",
+    "build": "tsc --noEmit && tsup --minify --sourcemap --dts --format esm,cjs",
     "dev": "tsup --watch --dts",
     "lint": "eslint \"lib/**/*.ts\" --fix"
   },

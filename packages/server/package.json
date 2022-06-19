@@ -1,10 +1,19 @@
 {
   "name": "@domus/server",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "keywords": [],
+  "homepage": "https://github.com/ceopaludetto/domus/tree/main/packages/utils#readme",
+  "bugs": {
+    "url": "https://github.com/ceopaludetto/domus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceopaludetto/domus.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "Carlos Eduardo <ceo.paludetto@gmail.com>",
   "main": "build/index.js",
   "module": "build/index.mjs",
   "types": "build/index.d.ts",
@@ -12,9 +21,10 @@
     "build"
   ],
   "scripts": {
-    "build": "tsup-node --minify --dts --format esm,cjs",
+    "build": "tsc --noEmit && tsup-node --minify --dts --format esm,cjs",
     "dev": "tsup-node --watch --dts --onSuccess \"node build/index.js\"",
-    "lint": "eslint \"app/**/*.ts\" --fix"
+    "lint": "eslint \"app/**/*.ts\" --fix",
+    "start": "node build/index.js"
   },
   "dependencies": {
     "@prisma/client": "^3.15.2",

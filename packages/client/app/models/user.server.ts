@@ -16,14 +16,21 @@ export async function checkLogin({ email, password }: ISigninValues): Result<Use
 }
 
 export async function createUser({ email, firstName, lastName, password }: ISignupValues): Result<User> {
-  const user = await client.mutation("user.signup", { email, firstName, lastName, password });
+  const user = await client.mutation("user.signup", {
+    email: email!,
+    firstName: firstName!,
+    lastName: lastName!,
+    password: password!,
+  });
+
   return { data: user, error: null };
 }
 
 export async function updateUser(id: string, { birthDate, ...rest }: IPersonalInfoValues): Result<User> {
+  const date = birthDate ? toDate(birthDate).toDate() : undefined;
   const user = await client.mutation("user.update", {
     id,
-    birthDate: birthDate ? toDate(birthDate).toISOString() : undefined,
+    birthDate: date,
     ...rest,
   });
 

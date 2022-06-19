@@ -1,12 +1,14 @@
 import type { NavLinkProps } from "@remix-run/react";
 import type { Icon } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { alpha, ButtonBase, Typography } from "@mui/material";
 import { NavLink } from "@remix-run/react";
 
 import { BrandIcon } from "../atoms";
 
-export type ISidebarLinkProps = Omit<NavLinkProps, "className" | "style"> & {
+export type ISidebarLinkProps = Omit<NavLinkProps, "className" | "style" | "children"> & {
+  children: ReactNode;
   icon: Icon;
 };
 

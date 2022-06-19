@@ -17,7 +17,7 @@ export type ISidebarProps = DrawerProps & {
 export function Sidebar({ sx, user, condominiums, PaperProps, ...rest }: ISidebarProps) {
   const { open, toggleSidebar } = useSidebarContext();
 
-  const Items = useCallback(
+  const renderItems = useCallback(
     () => (
       <>
         <Stack sx={{ flex: 1 }} spacing={1.25} direction="column">
@@ -58,7 +58,7 @@ export function Sidebar({ sx, user, condominiums, PaperProps, ...rest }: ISideba
         }}
         {...rest}
       >
-        <Items />
+        {renderItems()}
       </Drawer>
       <Drawer
         open={open}
@@ -76,7 +76,7 @@ export function Sidebar({ sx, user, condominiums, PaperProps, ...rest }: ISideba
         }}
         {...rest}
       >
-        <Items />
+        {renderItems()}
       </Drawer>
     </>
   );
