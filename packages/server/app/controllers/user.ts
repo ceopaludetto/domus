@@ -1,35 +1,42 @@
 import * as TRPC from "@trpc/server";
 import bcrypt, { compare } from "bcryptjs";
 
+import { createRouter } from "~/middlewares";
+import { createJWTToken } from "~/middlewares/authorization";
 import { prisma } from "~/utils/database";
 import { SignupSchema, IDSchema, SigninSchema } from "~/utils/validations";
 import { UpdateUserSchema } from "~/utils/validations/user/update";
 
-export const users = TRPC.router()
+export const users = createRouter()
   .query("findByID", {
     input: IDSchema,
+    meta: { hasAuth: true },
     resolve: async ({ input: { id } }) => prisma.user.findUnique({ where: { id } }),
   })
   .mutation("update", {
     input: UpdateUserSchema,
-    resolve: async ({ input: { id, email, firstName, lastName, birthDate, phone } }) => {
+    meta: { hasAuth: true },
+    resolve: async ({ ctx, input: { email, firstName, lastName, birthDate, phone } }) => {
       const currentUser = await prisma.user.findUnique({ where: { email } });
-      if (currentUser && currentUser.id !== id)
+      if (currentUser && currentUser.id !== ctx.user.id)
         throw new TRPC.TRPCError({
           code: "BAD_REQUEST",
           message: "User already signed",
         });
 
       const user = await prisma.user.update({
-        where: { id },
+        where: { id: ctx.user.id },
         data: { email, firstName, lastName, birthDate, phone },
       });
 
-      return user;
+      const token = createJWTToken(user.id);
+
+      return { user, token };
     },
   })
   .mutation("signup", {
     input: SignupSchema,
+    meta: { hasAuth: false },
     resolve: async ({ input: { password, email, ...rest } }) => {
       if (await prisma.user.findUnique({ where: { email } }))
         throw new TRPC.TRPCError({ code: "BAD_REQUEST", message: "User already signed" });
@@ -44,11 +51,14 @@ export const users = TRPC.router()
         },
       });
 
-      return user;
+      const token = createJWTToken(user.id);
+
+      return { user, token };
     },
   })
   .mutation("signin", {
     input: SigninSchema,
+    meta: { hasAuth: false },
     resolve: async ({ input: { email, password } }) => {
       const user = await prisma.user.findUnique({ where: { email } });
 
@@ -56,6 +66,8 @@ export const users = TRPC.router()
       if (!(await compare(password, user.password)))
         throw new TRPC.TRPCError({ code: "UNAUTHORIZED", message: "Incorrect password" });
 
-      return user;
+      const token = createJWTToken(user.id);
+
+      return { user, token };
     },
   });

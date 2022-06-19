@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const id = await getUserID(request);
   if (!id) return json(null);
 
-  const condominiums = await getUserCondominiums(id);
+  const condominiums = await getUserCondominiums({ request });
   const defaultCondominium = condominiums[0];
 
   return json(defaultCondominium);

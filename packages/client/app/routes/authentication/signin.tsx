@@ -20,10 +20,10 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await SigninValidator.validate(await request.formData());
   if (error) return validationError(error);
 
-  const res = await checkLogin(data);
+  const res = await checkLogin({ request, data });
   if (res.error) return validationError(res.error);
 
-  return createUserSession(request, res.data.id);
+  return createUserSession(request, res.data.user.id, res.data.token);
 };
 
 export default function AuthenticationSignin() {

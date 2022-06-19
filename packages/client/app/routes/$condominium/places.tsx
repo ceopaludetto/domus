@@ -13,11 +13,11 @@ export const meta: MetaFunction = () => ({
   title: "Locais e Eventos - Domus",
 });
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const condominiumID = params.condominium;
   invariant(condominiumID, "Condominium must be setted");
 
-  const places = await getCondominiumPlaces(condominiumID);
+  const places = await getCondominiumPlaces({ request, params });
   return json(places);
 };
 

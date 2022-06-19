@@ -10,11 +10,11 @@ import { Control, FormBuilder, Page, Section, SubmitButton, Tooltip } from "~/co
 import { getCondominiumByID } from "~/models";
 import { CondominiumValidator } from "~/utils/validation";
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const condominiumID = params.condominium;
   invariant(condominiumID, "Condominium must be setted");
 
-  const condominium = await getCondominiumByID(condominiumID);
+  const condominium = await getCondominiumByID({ request, data: condominiumID, params });
   if (!condominium) return validationError({ fieldErrors: { name: "Condomínio não encontrado" } });
 
   return json({

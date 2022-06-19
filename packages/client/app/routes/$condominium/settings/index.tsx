@@ -8,7 +8,7 @@ import { setFormDefaults, ValidatedForm, validationError } from "remix-validated
 import { Page, FormBuilder, Section, Control, SubmitButton } from "~/components";
 import { updateUser } from "~/models";
 import * as Masks from "~/utils/mask";
-import { createUserSession, requireUser, requireUserID } from "~/utils/session.server";
+import { createUserSession, requireUser } from "~/utils/session.server";
 import { PersonalInfoValidator } from "~/utils/validation";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -30,11 +30,10 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await PersonalInfoValidator.validate(await request.formData());
   if (error) return validationError(error);
 
-  const id = await requireUserID(request);
-  const res = await updateUser(id, data);
+  const res = await updateUser({ request, data });
 
   if (res.error) return validationError(res.error);
-  return createUserSession(request, res.data.id, request.url);
+  return createUserSession(request, res.data.user.id, res.data.token, request.url);
 };
 
 export const meta: MetaFunction = () => ({

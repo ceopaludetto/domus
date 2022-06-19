@@ -1,6 +1,5 @@
 import type { Palette, Theme } from "@mui/material";
 import type { ColorMode } from "~/utils/types";
-import type {} from "@mui/lab/themeAugmentation";
 
 import { responsiveFontSizes, createTheme } from "@mui/material";
 

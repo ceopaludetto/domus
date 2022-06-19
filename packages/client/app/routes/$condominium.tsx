@@ -14,7 +14,7 @@ type LoaderData = { condominiums: Condominium[]; user: User };
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
-  const condominiums = await getUserCondominiums(user.id);
+  const condominiums = await getUserCondominiums({ request });
 
   return json<LoaderData>({ user, condominiums });
 };

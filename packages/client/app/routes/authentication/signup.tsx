@@ -22,10 +22,10 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await SignupValidator.validate(await request.formData());
   if (error) return validationError(error);
 
-  const res = await createUser(data);
+  const res = await createUser({ request, data });
   if (res.error) return validationError(res.error);
 
-  return createUserSession(request, res.data.id);
+  return createUserSession(request, res.data.user.id, res.data.token);
 };
 
 export default function AuthenticationSignup() {

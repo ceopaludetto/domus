@@ -1,5 +1,3 @@
-import { client } from "~/utils/api.server";
+import { withClient } from "~/utils/api.server";
 
-export function getRulesByCondominiumID(id: string) {
-  return client.query("rules.findCondominiumRules", { id });
-}
+export const getRulesByCondominiumID = withClient(async (client) => client.query("rules.findByCondominiumID"));

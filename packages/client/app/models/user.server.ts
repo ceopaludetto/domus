@@ -4,35 +4,38 @@ import type { IPersonalInfoValues, ISigninValues, ISignupValues } from "~/utils/
 
 import { toDate } from "@domus/utils";
 
-import { client } from "~/utils/api.server";
+import { withClient } from "~/utils/api.server";
 
-export async function getUserByID(id: User["id"]) {
-  return client.query("user.findByID", { id });
-}
+type UserWithToken = { token: string; user: User };
 
-export async function checkLogin({ email, password }: ISigninValues): Result<User> {
-  const user = await client.mutation("user.signin", { email, password });
-  return { data: user, error: null };
-}
+export const getUserByID = withClient(async (client, id: User["id"]) => client.query("user.findByID", { id }));
 
-export async function createUser({ email, firstName, lastName, password }: ISignupValues): Result<User> {
-  const user = await client.mutation("user.signup", {
-    email: email!,
-    firstName: firstName!,
-    lastName: lastName!,
-    password: password!,
-  });
+export const checkLogin = withClient(async (client, { email, password }: ISigninValues): Result<UserWithToken> => {
+  const data = await client.mutation("user.signin", { email, password });
+  return { data, error: null };
+});
 
-  return { data: user, error: null };
-}
+export const createUser = withClient(
+  async (client, { email, firstName, lastName, password }: ISignupValues): Result<UserWithToken> => {
+    const data = await client.mutation("user.signup", {
+      email: email!,
+      firstName: firstName!,
+      lastName: lastName!,
+      password: password!,
+    });
 
-export async function updateUser(id: string, { birthDate, ...rest }: IPersonalInfoValues): Result<User> {
-  const date = birthDate ? toDate(birthDate).toDate() : undefined;
-  const user = await client.mutation("user.update", {
-    id,
-    birthDate: date,
-    ...rest,
-  });
+    return { data, error: null };
+  }
+);
 
-  return { data: user, error: null };
-}
+export const updateUser = withClient(
+  async (client, { birthDate, ...rest }: IPersonalInfoValues): Result<UserWithToken> => {
+    const date = birthDate ? toDate(birthDate).toDate() : undefined;
+    const data = await client.mutation("user.update", {
+      birthDate: date,
+      ...rest,
+    });
+
+    return { data, error: null };
+  }
+);

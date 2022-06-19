@@ -1,11 +1,9 @@
-import type { Condominium, User } from "@prisma/client";
+import type { Condominium } from "@prisma/client";
 
-import { client } from "~/utils/api.server";
+import { withClient } from "~/utils/api.server";
 
-export async function getCondominiumByID(id: Condominium["id"]) {
-  return client.query("condominiums.findByID", { id });
-}
+export const getCondominiumByID = withClient(async (client, id: Condominium["id"]) =>
+  client.query("condominiums.findByID", { id })
+);
 
-export async function getUserCondominiums(id: User["id"]) {
-  return client.query("condominiums.findUserCondominiums", { id });
-}
+export const getUserCondominiums = withClient(async (client) => client.query("condominiums.findByUserID"));

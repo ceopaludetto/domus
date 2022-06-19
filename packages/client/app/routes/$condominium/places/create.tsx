@@ -18,7 +18,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const condominiumID = params.condominium;
   invariant(condominiumID, "Condominium must be setted");
 
-  const res = await createPlace(data, condominiumID);
+  const res = await createPlace({ request, data, params });
   if (res.error) throw validationError(res.error);
 
   return json(res.data);

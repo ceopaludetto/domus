@@ -1,25 +1,26 @@
-import * as TRPC from "@trpc/server";
-
+import { createRouter } from "~/middlewares";
 import { prisma } from "~/utils/database";
 import { IDSchema, CreatePlaceSchema } from "~/utils/validations";
 
-export const places = TRPC.router()
+export const places = createRouter()
   .query("findByID", {
     input: IDSchema,
+    meta: { hasAuth: true },
     resolve: async ({ input: { id } }) => prisma.place.findUnique({ where: { id } }),
   })
-  .query("findCondominiumPlaces", {
-    input: IDSchema,
-    resolve: async ({ input: { id } }) => prisma.place.findMany({ where: { condominiumID: id } }),
+  .query("findByCondominiumID", {
+    meta: { hasAuth: true, hasCondominium: true },
+    resolve: async ({ ctx }) => prisma.place.findMany({ where: { condominiumID: ctx.condominium.id } }),
   })
-  .mutation("createPlace", {
+  .mutation("create", {
     input: CreatePlaceSchema,
-    resolve: async ({ input: { name, capacity, condominiumID } }) => {
+    meta: { hasAuth: true },
+    resolve: async ({ input: { name, capacity }, ctx }) => {
       const place = await prisma.place.create({
         data: {
           name,
           capacity,
-          condominiumID,
+          condominiumID: ctx.condominium.id,
         },
       });
 

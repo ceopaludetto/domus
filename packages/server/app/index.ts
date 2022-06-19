@@ -1,3 +1,4 @@
+import "dotenv/config";
 import type { router } from "./utils/middlewares";
 
 import express from "express";
