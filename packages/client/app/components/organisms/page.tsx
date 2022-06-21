@@ -21,7 +21,7 @@ export function Page({ title, subtitle, children, trailing, subPage, isSubPage, 
   const { open, toggleSidebar } = useSidebarContext();
 
   const Wrapper = useCallback(
-    (c: JSX.Element) => <Box sx={{ gridArea: "page", display: "flex", flexWrap: "wrap" }}>{c}</Box>,
+    (c: JSX.Element) => <Box sx={{ gridArea: "page", display: "flex", flexWrap: "wrap", minWidth: 0 }}>{c}</Box>,
     []
   );
 

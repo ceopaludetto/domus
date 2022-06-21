@@ -22,6 +22,7 @@ export function TabLink({ title, description, icon, ...rest }: ITabLinkProps) {
         alignItems: "center",
         color: "secondary.main",
         textDecoration: "none",
+        whiteSpace: "nowrap",
         "&.active .icon": { backgroundColor: "primary.main", color: "primary.contrastText" },
       }}
       component={NavLink}
@@ -39,7 +40,7 @@ export function TabLink({ title, description, icon, ...rest }: ITabLinkProps) {
           {description}
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", color: "text.secondary" }}>
+      <Box sx={{ display: { xs: "none", lg: "flex" }, color: "text.secondary" }}>
         <ChevronRight size={18} />
       </Box>
     </Box>

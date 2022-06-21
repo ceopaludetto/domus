@@ -1,13 +1,12 @@
-import { Stack } from "@mui/material";
 import { Outlet } from "@remix-run/react";
 import { Building2, Lock, User } from "lucide-react";
 
-import { Page, TabLink } from "~/components";
+import { Page, TabLink, TabLinkGroup } from "~/components";
 
 export default function DashboardSettings() {
   return (
     <Page title="Ajustes" subtitle="Visão Geral" subPage={<Outlet />}>
-      <Stack spacing={3}>
+      <TabLinkGroup>
         <TabLink to="" title="Informações Pessoais" description="Nome, notificações." icon={User} />
         <TabLink to="security" title="Segurança" description="Senha, A2F." icon={Lock} />
         <TabLink
@@ -16,7 +15,7 @@ export default function DashboardSettings() {
           description="Nome, endereço, caractere especial."
           icon={Building2}
         />
-      </Stack>
+      </TabLinkGroup>
     </Page>
   );
 }

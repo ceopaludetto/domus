@@ -2,7 +2,7 @@ import type { ButtonBaseProps } from "@mui/material";
 import type { User } from "@prisma/client";
 
 import { getNameAbbreviation } from "@domus/utils";
-import { Paper, Badge, IconButton, Box, Avatar, Stack } from "@mui/material";
+import { Badge, IconButton, Box, Avatar, Stack } from "@mui/material";
 import { Form } from "@remix-run/react";
 import { Bell, LogOut, Search } from "lucide-react";
 
@@ -37,30 +37,28 @@ export function SidebarUser({ user }: ISidebarUserProps) {
           </Avatar>
         </IconButton>
       </Tooltip>
-      <Paper sx={{ p: 1, backgroundColor: "background.default" }} variant="outlined">
-        <Stack direction="row" spacing={2}>
-          <Tooltip describeChild title="Notificações">
-            <IconButton>
-              <Badge badgeContent={2} color="primary">
-                <Bell />
-              </Badge>
+      <Stack direction="row" spacing={2}>
+        <Tooltip describeChild title="Notificações">
+          <IconButton>
+            <Badge badgeContent={2} color="primary">
+              <Bell />
+            </Badge>
+          </IconButton>
+        </Tooltip>
+        <Tooltip describeChild title="Pesquisa">
+          <IconButton>
+            <Search />
+          </IconButton>
+        </Tooltip>
+        <Form method="post">
+          <input type="hidden" name="subaction" value="logout" />
+          <Tooltip describeChild title="Sair">
+            <IconButton type="submit" color="error">
+              <LogOut />
             </IconButton>
           </Tooltip>
-          <Tooltip describeChild title="Pesquisa">
-            <IconButton>
-              <Search />
-            </IconButton>
-          </Tooltip>
-          <Form method="post">
-            <input type="hidden" name="subaction" value="logout" />
-            <Tooltip describeChild title="Sair">
-              <IconButton type="submit" color="error">
-                <LogOut />
-              </IconButton>
-            </Tooltip>
-          </Form>
-        </Stack>
-      </Paper>
+        </Form>
+      </Stack>
     </Box>
   );
 }

@@ -1,7 +1,6 @@
-import type { Palette } from "@mui/material";
-import type { DeepPartial } from "utility-types";
+import type { PaletteOptions } from "@mui/material";
 
-export const darkPalette: DeepPartial<Palette> = {
+export const darkPalette: PaletteOptions = {
   mode: "dark",
   primary: {
     main: "#a78bfa",
@@ -25,7 +24,7 @@ export const darkPalette: DeepPartial<Palette> = {
   divider: "rgba(255,255,255,0.09)",
 };
 
-export const lightPalette: DeepPartial<Palette> = {
+export const lightPalette: PaletteOptions = {
   mode: "light",
   primary: {
     main: "#7c3aed",
