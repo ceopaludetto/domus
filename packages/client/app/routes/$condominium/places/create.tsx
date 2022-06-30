@@ -18,7 +18,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const condominiumID = params.condominium;
   invariant(condominiumID, "Condominium must be setted");
 
-  const res = await createPlace({ request, data, params });
+  const res = await createPlace({ data, params, request });
   if (res.error) throw validationError(res.error);
 
   return json(res.data);
@@ -30,12 +30,12 @@ export default function DashboardPlacesCreate() {
   return (
     <FormDrawer {...drawer}>
       <Box sx={{ width: 500 }}>
-        <ValidatedForm validator={PlaceValidator} method="post">
+        <ValidatedForm method="post" validator={PlaceValidator}>
           <FormBuilder>
             <FormHeader
-              title="Adicionar Local"
               description="Locais e Eventos"
               icon={MapPin}
+              title="Adicionar Local"
               useSemanticTags={false}
               trailing={
                 <Tooltip describeChild title="Fechar">
@@ -45,19 +45,19 @@ export default function DashboardPlacesCreate() {
                 </Tooltip>
               }
             />
-            <Section title="Informações Sobre o Local" description="Preencha as características que definem o local.">
+            <Section description="Preencha as características que definem o local." title="Informações Sobre o Local">
               <FormBuilder>
                 <Control label="Nome do Local" name="name" />
                 <Control label="Capacidade do Local" name="capacity" type="number" />
               </FormBuilder>
             </Section>
-            <Section title="Fotos do Local" description="Adicione fotos que mostram o que o local tem à oferecer.">
+            <Section description="Adicione fotos que mostram o que o local tem à oferecer." title="Fotos do Local">
               photo picker
             </Section>
-            <SubmitButton size="large" fullWidth>
+            <SubmitButton fullWidth size="large">
               Adicionar
             </SubmitButton>
-            <Button variant="outlined" size="large" fullWidth onClick={drawer.handleClose}>
+            <Button fullWidth onClick={drawer.handleClose} size="large" variant="outlined">
               Voltar
             </Button>
           </FormBuilder>

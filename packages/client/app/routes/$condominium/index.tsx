@@ -8,7 +8,7 @@ export const meta: MetaFunction = () => ({
 
 export default function DashboardIndex() {
   return (
-    <Page title="Início" subtitle="Visão Geral">
+    <Page subtitle="Visão Geral" title="Início">
       content
     </Page>
   );

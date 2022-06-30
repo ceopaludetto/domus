@@ -1,6 +1,14 @@
 import type { PaletteOptions } from "@mui/material";
 
 export const darkPalette: PaletteOptions = {
+  background: {
+    default: "#000",
+    paper: "#0d0d0d",
+  },
+  divider: "rgba(255,255,255,0.09)",
+  error: {
+    main: "#f87171",
+  },
   mode: "dark",
   primary: {
     main: "#a78bfa",
@@ -8,23 +16,23 @@ export const darkPalette: PaletteOptions = {
   secondary: {
     main: "#FFF",
   },
-  error: {
-    main: "#f87171",
+  success: {
+    main: "#c2eaba",
   },
   warning: {
     main: "#fde047",
   },
-  success: {
-    main: "#c2eaba",
-  },
-  background: {
-    paper: "#0d0d0d",
-    default: "#000",
-  },
-  divider: "rgba(255,255,255,0.09)",
 };
 
 export const lightPalette: PaletteOptions = {
+  background: {
+    default: "#FFF",
+    paper: "#fcfaff",
+  },
+  divider: "rgba(0,0,0,0.06)",
+  error: {
+    main: "#dc2626",
+  },
   mode: "light",
   primary: {
     main: "#7c3aed",
@@ -32,18 +40,10 @@ export const lightPalette: PaletteOptions = {
   secondary: {
     main: "#000",
   },
-  error: {
-    main: "#dc2626",
+  success: {
+    main: "#5aa94a",
   },
   warning: {
     main: "#facc15",
   },
-  success: {
-    main: "#5aa94a",
-  },
-  background: {
-    paper: "#fcfaff",
-    default: "#FFF",
-  },
-  divider: "rgba(0,0,0,0.06)",
 };

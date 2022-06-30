@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
   const condominiums = await getUserCondominiums({ request });
 
-  return json<LoaderData>({ user, condominiums });
+  return json<LoaderData>({ condominiums, user });
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -36,11 +36,11 @@ export default function Dashboard() {
         sx={{
           display: "grid",
           gridTemplateAreas: '"sidebar page"',
-          gridTemplateColumns: { xs: "auto 1fr", md: "350px 1fr" },
+          gridTemplateColumns: { md: "350px 1fr", xs: "auto 1fr" },
           gridTemplateRows: "1fr",
         }}
       >
-        <Sidebar user={user} condominiums={condominiums} />
+        <Sidebar condominiums={condominiums} user={user} />
         <Outlet />
       </Box>
     </SidebarProvider>

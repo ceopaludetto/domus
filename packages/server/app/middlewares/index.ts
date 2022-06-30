@@ -9,7 +9,7 @@ export async function createContext(context: TRPCExpress.CreateExpressContextOpt
   const user = await getUserByHeader(context);
   const condominium = await getCondominiumByHeader(context);
 
-  return { user, condominium };
+  return { condominium, user };
 }
 
 export type Context = TRPC.inferAsyncReturnType<typeof createContext>;

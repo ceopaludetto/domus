@@ -22,7 +22,7 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await SignupValidator.validate(await request.formData());
   if (error) return validationError(error);
 
-  const res = await createUser({ request, data });
+  const res = await createUser({ data, request });
   if (res.error) return validationError(res.error);
 
   return createUserSession(request, res.data.user.id, res.data.token);
@@ -35,21 +35,21 @@ export default function AuthenticationSignup() {
   });
 
   const { icon, description } = useMemo(() => {
-    if (step === 0) return { icon: User, description: "Informações Pessoais" };
-    if (step === 1) return { icon: Lock, description: "Senha" };
-    return { icon: Building2, description: "Informações do Condomínio" };
+    if (step === 0) return { description: "Informações Pessoais", icon: User };
+    if (step === 1) return { description: "Senha", icon: Lock };
+    return { description: "Informações do Condomínio", icon: Building2 };
   }, [step]);
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 500 }}>
-      <ValidatedForm formRef={ref} onSubmit={onSubmit} id="signupForm" validator={SignupValidator} method="post">
-        <input type="hidden" name="step" value={step} />
+    <Box sx={{ maxWidth: 500, width: "100%" }}>
+      <ValidatedForm formRef={ref} id="signupForm" method="post" onSubmit={onSubmit} validator={SignupValidator}>
+        <input name="step" type="hidden" value={step} />
         <FormBuilder>
           <FormBuilder.Item>
             <FormHeader
-              title="Bem Vindo!"
               description={description}
               icon={icon}
+              title="Bem Vindo!"
               trailing={<Stepper max={3} step={step} />}
             />
           </FormBuilder.Item>
@@ -62,7 +62,7 @@ export default function AuthenticationSignup() {
                 <Control label="Sobrenome" name="lastName" />
               </FormBuilder.Item>
               <Control label="Email" name="email" />
-              <SubmitButton size="large" fullWidth>
+              <SubmitButton fullWidth size="large">
                 Próximo
               </SubmitButton>
             </FormBuilder>
@@ -72,12 +72,12 @@ export default function AuthenticationSignup() {
               <Control label="Senha" name="password" type="password" />
               <Control label="Repetir Senha" name="repeatPassword" type="password" />
               <FormBuilder.Item size={6}>
-                <Button onClick={prev} size="large" fullWidth variant="outlined">
+                <Button fullWidth onClick={prev} size="large" variant="outlined">
                   Anterior
                 </Button>
               </FormBuilder.Item>
               <FormBuilder.Item size={6}>
-                <SubmitButton size="large" fullWidth>
+                <SubmitButton fullWidth size="large">
                   Próximo
                 </SubmitButton>
               </FormBuilder.Item>
@@ -87,12 +87,12 @@ export default function AuthenticationSignup() {
             <FormBuilder>
               <Control label="Nome do Condomínio" name="condominiumName" />
               <FormBuilder.Item size={6}>
-                <Button onClick={prev} size="large" fullWidth variant="outlined">
+                <Button fullWidth onClick={prev} size="large" variant="outlined">
                   Anterior
                 </Button>
               </FormBuilder.Item>
               <FormBuilder.Item size={6}>
-                <SubmitButton size="large" fullWidth>
+                <SubmitButton fullWidth size="large">
                   Cadastrar
                 </SubmitButton>
               </FormBuilder.Item>

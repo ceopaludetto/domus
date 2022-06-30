@@ -93,8 +93,8 @@ export function useStepperForm({ formID, initialValue = 0, fields }: IUseStepper
     step,
     {
       next,
-      prev: previous,
       onSubmit,
+      prev: previous,
       ref,
     },
   ] as const;

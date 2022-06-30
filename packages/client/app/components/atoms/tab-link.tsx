@@ -2,7 +2,7 @@ import type { NavLinkProps } from "@remix-run/react";
 import type { Icon } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, ButtonBase, Typography } from "@mui/material";
 import { NavLink } from "@remix-run/react";
 import { ChevronRight } from "lucide-react";
 
@@ -16,34 +16,36 @@ export type ITabLinkProps = Omit<NavLinkProps, "style" | "className"> & {
 
 export function TabLink({ title, description, icon, ...rest }: ITabLinkProps) {
   return (
-    <Box
+    <ButtonBase
+      disableTouchRipple
+      focusRipple
+      component={NavLink}
       sx={{
-        display: "flex",
+        "&.active .icon": { backgroundColor: "primary.main", color: "primary.contrastText" },
         alignItems: "center",
         color: "secondary.main",
+        display: "flex",
         textDecoration: "none",
         whiteSpace: "nowrap",
-        "&.active .icon": { backgroundColor: "primary.main", color: "primary.contrastText" },
       }}
-      component={NavLink}
       {...rest}
     >
       <BrandIcon
-        type="contained"
-        icon={icon}
         className="icon"
+        icon={icon}
         sx={{ transition: (theme) => theme.transitions.create(["background-color", "color"]) }}
+        type="contained"
       />
-      <Box sx={{ ml: 2, flex: 1 }}>
+      <Box sx={{ flex: 1, ml: 2 }}>
         <Typography sx={{ fontWeight: "regular" }}>{title}</Typography>
-        <Typography variant="subtitle2" color="textSecondary" sx={{ fontWeight: "regular" }}>
+        <Typography color="textSecondary" sx={{ fontWeight: "regular" }} variant="subtitle2">
           {description}
         </Typography>
       </Box>
-      <Box sx={{ display: { xs: "none", lg: "flex" }, color: "text.secondary" }}>
+      <Box sx={{ color: "text.secondary", display: { lg: "flex", xs: "none" } }}>
         <ChevronRight size={18} />
       </Box>
-    </Box>
+    </ButtonBase>
   );
 }
 

@@ -2,7 +2,7 @@ import type { NavLinkProps } from "@remix-run/react";
 import type { Icon } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { alpha, ButtonBase, Typography } from "@mui/material";
+import { ButtonBase, Typography } from "@mui/material";
 import { NavLink } from "@remix-run/react";
 
 import { BrandIcon } from "../atoms";
@@ -15,20 +15,24 @@ export type ISidebarLinkProps = Omit<NavLinkProps, "className" | "style" | "chil
 export function SidebarLink({ children, icon, ...rest }: ISidebarLinkProps) {
   return (
     <ButtonBase
+      focusRipple
+      component={NavLink}
       sx={{
+        "&.active": {
+          backgroundColor: (theme) => `rgba(${theme.vars.palette.primary.mainChannel} / 0.15)`,
+          color: "primary.main",
+        },
         borderRadius: 1.5,
-        width: "100%",
-        p: 1.25,
         display: "inline-flex",
         justifyContent: "flex-start",
+        p: 1.25,
         transition: (theme) => theme.transitions.create(["color", "background-color"]),
-        "&.active": { color: "primary.main", backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.15) },
+        width: "100%",
       }}
-      component={NavLink}
       {...rest}
     >
       <BrandIcon icon={icon} />
-      <Typography sx={{ ml: 2, fontWeight: "medium" }}>{children}</Typography>
+      <Typography sx={{ fontWeight: "medium", ml: 2 }}>{children}</Typography>
     </ButtonBase>
   );
 }

@@ -13,8 +13,8 @@ export const router = createRouter()
   .merge("rules.", rules);
 
 const trpcMiddleware = TRPCExpress.createExpressMiddleware({
-  router,
   createContext,
+  router,
 });
 
 export function installMiddlewares(application: Application) {

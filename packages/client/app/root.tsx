@@ -1,20 +1,25 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import type { FC } from "react";
 
 import { withEmotionCache } from "@emotion/react";
-import { useTheme } from "@mui/material";
+import { getInitColorSchemeScript, useTheme } from "@mui/material";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { useIsomorphicLayoutEffect } from "ahooks";
 
-import { Fonts } from "./assets";
 import { useApplicationCache } from "./providers/theme";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Domus",
   description: "Gerencie condomínios com elegância.",
+  title: "Domus",
   viewport: "width=device-width,initial-scale=1",
 });
+
+export const links: LinksFunction = () => [
+  { href: "https://fonts.googleapis.com", rel: "preconnect" },
+  { crossOrigin: "anonymous", href: "https://fonts.gstatic.com", rel: "preconnect" },
+  { href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap", rel: "stylesheet" },
+];
 
 const App: FC = withEmotionCache((props, emotionCache) => {
   const cache = useApplicationCache();
@@ -39,12 +44,11 @@ const App: FC = withEmotionCache((props, emotionCache) => {
       <head>
         <Meta />
         <Links />
-        <meta name="emotion-insertion-point" content="emotion-insertion-point" />
-        <meta name="color-scheme" content={theme.palette.mode} />
-        <meta name="theme-color" content={theme.palette.background.default} />
+        <meta content="emotion-insertion-point" name="emotion-insertion-point" />
+        <meta content={theme.vars.palette.background.default} name="theme-color" />
       </head>
       <body>
-        <Fonts />
+        {getInitColorSchemeScript({ enableSystem: true })}
         <Outlet />
         <ScrollRestoration />
         <Scripts />

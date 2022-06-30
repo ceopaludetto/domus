@@ -20,7 +20,7 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await SigninValidator.validate(await request.formData());
   if (error) return validationError(error);
 
-  const res = await checkLogin({ request, data });
+  const res = await checkLogin({ data, request });
   if (res.error) return validationError(res.error);
 
   return createUserSession(request, res.data.user.id, res.data.token);
@@ -28,13 +28,13 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function AuthenticationSignin() {
   return (
-    <Box sx={{ width: "100%", maxWidth: 500 }}>
-      <ValidatedForm validator={SigninValidator} method="post">
+    <Box sx={{ maxWidth: 500, width: "100%" }}>
+      <ValidatedForm method="post" validator={SigninValidator}>
         <FormBuilder>
-          <FormHeader title="Bem Vindo de Volta!" description="Efetuar Login" icon={User} />
+          <FormHeader description="Efetuar Login" icon={User} title="Bem Vindo de Volta!" />
           <Control label="Email" name="email" />
           <Control label="Senha" name="password" type="password" />
-          <SubmitButton size="large" fullWidth>
+          <SubmitButton fullWidth size="large">
             Entrar
           </SubmitButton>
           <FormBuilder.Item sx={{ textAlign: "center" }}>

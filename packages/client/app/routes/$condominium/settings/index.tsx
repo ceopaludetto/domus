@@ -17,11 +17,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return json(
     setFormDefaults("personalInformationForm", {
+      birthDate: date,
       email,
-      phone,
       firstName,
       lastName,
-      birthDate: date,
+      phone,
     })
   );
 };
@@ -30,7 +30,7 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await PersonalInfoValidator.validate(await request.formData());
   if (error) return validationError(error);
 
-  const res = await updateUser({ request, data });
+  const res = await updateUser({ data, request });
 
   if (res.error) return validationError(res.error);
   return createUserSession(request, res.data.user.id, res.data.token, request.url);
@@ -42,9 +42,9 @@ export const meta: MetaFunction = () => ({
 
 export default function DashboardSettingsIndex() {
   return (
-    <Page title="Informações Pessoais" subtitle="Ajustes" isSubPage>
-      <Section title="Identificação" description="Preencha as informações referentes à sua identificação.">
-        <ValidatedForm validator={PersonalInfoValidator} id="personalInformationForm" method="post">
+    <Page isSubPage subtitle="Ajustes" title="Informações Pessoais">
+      <Section description="Preencha as informações referentes à sua identificação." title="Identificação">
+        <ValidatedForm id="personalInformationForm" method="post" validator={PersonalInfoValidator}>
           <FormBuilder>
             <Control label="Email" name="email" />
             <FormBuilder.Item size={6}>
@@ -54,10 +54,10 @@ export default function DashboardSettingsIndex() {
               <Control label="Sobrenome" name="lastName" />
             </FormBuilder.Item>
             <FormBuilder.Item size={6}>
-              <Control label="Telefone" name="phone" maskOptions={Masks.PHONE} />
+              <Control label="Telefone" maskOptions={Masks.PHONE} name="phone" />
             </FormBuilder.Item>
             <FormBuilder.Item size={6}>
-              <Control label="Data de Nascimento" name="birthDate" maskOptions={Masks.DATE} />
+              <Control label="Data de Nascimento" maskOptions={Masks.DATE} name="birthDate" />
             </FormBuilder.Item>
             <FormBuilder.Item sx={{ textAlign: "right" }}>
               <SubmitButton>Alterar Informações</SubmitButton>
@@ -66,12 +66,12 @@ export default function DashboardSettingsIndex() {
         </ValidatedForm>
       </Section>
       <Section
-        title="Notificações"
         description="Configure os meios de comunicação que utilizaremos para manter contato."
+        title="Notificações"
       >
         <Switch />
       </Section>
-      <Section title="Área de Risco" description="Ações irreversíveis.">
+      <Section description="Ações irreversíveis." title="Área de Risco">
         <Button color="error">Excluir Conta</Button>
       </Section>
     </Page>

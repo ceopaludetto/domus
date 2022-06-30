@@ -12,12 +12,12 @@ export type ISectionProps = BoxProps & {
 export function Section({ title, description, children, sx, trailing, ...rest }: ISectionProps) {
   return (
     <Box component="section" sx={{ "& + &": { mt: 2 }, ...sx }} {...rest}>
-      <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+      <Grid container alignItems="center" spacing={2} sx={{ mb: 2 }}>
         <Grid item xs>
-          <Typography variant="h6" component="h3" sx={{ fontWeight: "regular" }}>
+          <Typography component="h3" sx={{ fontWeight: "regular" }} variant="h6">
             {title}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography color="textSecondary" variant="subtitle1">
             {description}
           </Typography>
         </Grid>

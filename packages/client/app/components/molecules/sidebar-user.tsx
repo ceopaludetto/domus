@@ -16,19 +16,19 @@ export function SidebarUser({ user }: ISidebarUserProps) {
   return (
     <Box
       sx={{
-        width: "100%",
+        alignItems: "center",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        width: "100%",
       }}
     >
       <Tooltip describeChild title={user.firstName}>
         <IconButton size="small">
           <Avatar
             sx={{
-              fontWeight: "medium",
               backgroundColor: "secondary.main",
               color: "secondary.contrastText",
+              fontWeight: "medium",
               height: 46,
               width: 46,
             }}
@@ -51,9 +51,9 @@ export function SidebarUser({ user }: ISidebarUserProps) {
           </IconButton>
         </Tooltip>
         <Form method="post">
-          <input type="hidden" name="subaction" value="logout" />
+          <input name="subaction" type="hidden" value="logout" />
           <Tooltip describeChild title="Sair">
-            <IconButton type="submit" color="error">
+            <IconButton color="error" type="submit">
               <LogOut />
             </IconButton>
           </Tooltip>

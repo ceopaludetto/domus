@@ -5,15 +5,15 @@ import { Page, TabLink, TabLinkGroup } from "~/components";
 
 export default function DashboardSettings() {
   return (
-    <Page title="Ajustes" subtitle="Visão Geral" subPage={<Outlet />}>
+    <Page subPage={<Outlet />} subtitle="Visão Geral" title="Ajustes">
       <TabLinkGroup>
-        <TabLink to="" title="Informações Pessoais" description="Nome, notificações." icon={User} />
-        <TabLink to="security" title="Segurança" description="Senha, A2F." icon={Lock} />
+        <TabLink description="Nome, notificações." icon={User} title="Informações Pessoais" to="" />
+        <TabLink description="Senha, A2F." icon={Lock} title="Segurança" to="security" />
         <TabLink
-          to="condominium"
-          title="Condomínio"
           description="Nome, endereço, caractere especial."
           icon={Building2}
+          title="Condomínio"
+          to="condominium"
         />
       </TabLinkGroup>
     </Page>

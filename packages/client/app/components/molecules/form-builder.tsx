@@ -14,7 +14,7 @@ export type IFormBuilderProps = BoxProps & {
 
 function FormBuilderItem({ size, children, sx, ...rest }: IFormBuilderItemProps) {
   return (
-    <Box sx={{ gridColumn: { xs: "span 12", md: `span ${size}` }, ...sx }} {...rest}>
+    <Box sx={{ gridColumn: { md: `span ${size}`, xs: "span 12" }, ...sx }} {...rest}>
       {children}
     </Box>
   );
@@ -33,8 +33,8 @@ export function FormBuilder({ children, sx, ...rest }: IFormBuilderProps) {
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: "repeat(12, 1fr)",
         gap: 3,
+        gridTemplateColumns: "repeat(12, 1fr)",
         ...sx,
       }}
       {...rest}

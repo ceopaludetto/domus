@@ -16,10 +16,10 @@ export type IFormHeaderProps = StackProps & {
 
 export function FormHeader({ icon, title, description, trailing, useSemanticTags, ...rest }: IFormHeaderProps) {
   return (
-    <Stack direction="row" spacing={2} alignItems="center" {...rest}>
+    <Stack alignItems="center" direction="row" spacing={2} {...rest}>
       <BrandIcon icon={icon} />
       <Stack sx={{ flex: 1 }}>
-        <Typography variant="h5" component={useSemanticTags ? "h1" : "p"}>
+        <Typography component={useSemanticTags ? "h1" : "p"} variant="h5">
           {title}
         </Typography>
         <Typography color="textSecondary" component={useSemanticTags ? "h2" : "p"}>

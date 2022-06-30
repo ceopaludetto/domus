@@ -41,15 +41,14 @@ export function Control({ name, maskOptions, helperText, type, InputProps, ...re
     <TextField
       inputRef={reference}
       {...getInputProps({
-        id: name,
         error: !!error,
         helperText: error ?? helperText,
-        type: currentType,
+        id: name,
         InputProps: {
           endAdornment: type === "password" && (
             <InputAdornment position="end">
               <Tooltip describeChild title={visible ? "Esconder senha" : "Mostrar senha"}>
-                <IconButton onClick={showPassword} color="primary">
+                <IconButton color="primary" onClick={showPassword}>
                   {visible ? <EyeOff /> : <Eye />}
                 </IconButton>
               </Tooltip>
@@ -57,6 +56,7 @@ export function Control({ name, maskOptions, helperText, type, InputProps, ...re
           ),
           ...InputProps,
         },
+        type: currentType,
         ...rest,
       })}
     />

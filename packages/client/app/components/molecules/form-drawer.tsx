@@ -20,25 +20,25 @@ export function FormDrawer({
 }: IFormDrawerProps) {
   return (
     <Drawer
-      PaperProps={{
-        elevation: 0,
-        sx: {
-          p: 3,
-          borderLeft: 1,
-          borderColor: "divider",
-          ...PaperProps?.sx,
-        },
-        ...PaperProps,
-      }}
+      anchor="right"
       onClose={handleClose}
       open={open}
       variant="temporary"
-      anchor="right"
       ModalProps={{
         keepMounted: true,
         // disablePortal: true,
         onTransitionEnd: handleTransitionEnd,
         ...ModalProps,
+      }}
+      PaperProps={{
+        elevation: 0,
+        sx: {
+          borderColor: "divider",
+          borderLeft: 1,
+          p: 3,
+          ...PaperProps?.sx,
+        },
+        ...PaperProps,
       }}
       {...rest}
     >

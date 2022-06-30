@@ -18,9 +18,9 @@ export const places = createRouter()
     resolve: async ({ input: { name, capacity }, ctx }) => {
       const place = await prisma.place.create({
         data: {
-          name,
           capacity,
           condominiumID: ctx.condominium.id,
+          name,
         },
       });
 

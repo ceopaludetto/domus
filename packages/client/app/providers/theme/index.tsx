@@ -1,30 +1,21 @@
 import type { ReactNode } from "react";
-import type { ColorMode } from "~/utils/types";
 
-import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
-import { useIsomorphicLayoutEffect } from "ahooks";
-import { useState } from "react";
+import { CssBaseline, Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material";
 
 import { createApplicationTheme } from "./create";
 
 interface IApplicationThemeProviderProps {
   children: ReactNode;
-  initialColorMode: ColorMode;
 }
 
-export function ApplicationThemeProvider({ children, initialColorMode }: IApplicationThemeProviderProps) {
-  const [currentTheme, setCurrentTheme] = useState(createApplicationTheme(initialColorMode));
-  const isDark = useMediaQuery("(prefers-color-scheme: dark)", { defaultMatches: initialColorMode === "dark" });
+const theme = createApplicationTheme();
 
-  useIsomorphicLayoutEffect(() => {
-    setCurrentTheme(createApplicationTheme(isDark ? "dark" : "light"));
-  }, [isDark]);
-
+export function ApplicationThemeProvider({ children }: IApplicationThemeProviderProps) {
   return (
-    <ThemeProvider theme={currentTheme}>
+    <CssVarsProvider defaultMode="system" prefix="" theme={theme}>
       <CssBaseline />
       {children}
-    </ThemeProvider>
+    </CssVarsProvider>
   );
 }
 

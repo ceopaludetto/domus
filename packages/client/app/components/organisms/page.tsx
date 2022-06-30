@@ -21,7 +21,7 @@ export function Page({ title, subtitle, children, trailing, subPage, isSubPage, 
   const { open, toggleSidebar } = useSidebarContext();
 
   const Wrapper = useCallback(
-    (c: JSX.Element) => <Box sx={{ gridArea: "page", display: "flex", flexWrap: "wrap", minWidth: 0 }}>{c}</Box>,
+    (c: JSX.Element) => <Box sx={{ display: "flex", flexWrap: "wrap", gridArea: "page", minWidth: 0 }}>{c}</Box>,
     []
   );
 
@@ -30,33 +30,33 @@ export function Page({ title, subtitle, children, trailing, subPage, isSubPage, 
       <>
         <Box
           sx={{
-            px: 3,
-            pt: 3,
-            pb: { xs: subPage ? 0 : 3, lg: 3 },
-            minHeight: { lg: "100vh" },
-            borderLeft: isSubPage ? { lg: 1 } : 0,
             borderColor: { lg: "divider" },
-            flex: { xs: "0 0 100%", lg: isSubPage ? 1.5 : 1 },
+            borderLeft: isSubPage ? { lg: 1 } : 0,
+            flex: { lg: isSubPage ? 1.5 : 1, xs: "0 0 100%" },
             gridArea: !subPage ? "page" : undefined,
-            overflowY: "auto",
             maxHeight: { lg: "100vh" },
+            minHeight: { lg: "100vh" },
+            overflowY: "auto",
+            pb: { lg: 3, xs: subPage ? 0 : 3 },
+            pt: 3,
+            px: 3,
             ...sx,
           }}
           {...rest}
         >
-          <Grid sx={{ mb: 2 }} container spacing={2} alignItems="center">
+          <Grid container alignItems="center" spacing={2} sx={{ mb: 2 }}>
             {!isSubPage && (
-              <Grid item sx={{ display: { xs: "block", md: "none" } }}>
+              <Grid item sx={{ display: { md: "none", xs: "block" } }}>
                 <IconButton aria-label={open ? "Fechar Menu" : "Abrir Menu"} onClick={() => toggleSidebar()}>
                   <Menu />
                 </IconButton>
               </Grid>
             )}
-            <Grid xs item sx={{ display: { xs: isSubPage ? "none" : "block", lg: "block" } }}>
-              <Typography variant="h4" component="h1">
+            <Grid item xs sx={{ display: { lg: "block", xs: isSubPage ? "none" : "block" } }}>
+              <Typography component="h1" variant="h4">
                 {title}
               </Typography>
-              <Typography variant="subtitle1" sx={{ fontWeight: "medium" }} component="h2" color="primary">
+              <Typography color="primary" component="h2" sx={{ fontWeight: "medium" }} variant="subtitle1">
                 {subtitle}
               </Typography>
             </Grid>
@@ -71,7 +71,7 @@ export function Page({ title, subtitle, children, trailing, subPage, isSubPage, 
 }
 
 Page.defaultProps = {
-  trailing: undefined,
-  subPage: undefined,
   isSubPage: false,
+  subPage: undefined,
+  trailing: undefined,
 };

@@ -5,32 +5,32 @@ import IMask from "imask";
 
 export const PHONE: AnyMaskedOptions = {
   mask: [
-    { mask: "(@@) 0000-0000", definitions: { "@": /[1-9]/ } },
-    { mask: "(@@) #0000-0000", definitions: { "#": /9/, "@": /[1-9]/ } },
+    { definitions: { "@": /[1-9]/ }, mask: "(@@) 0000-0000" },
+    { definitions: { "#": /9/, "@": /[1-9]/ }, mask: "(@@) #0000-0000" },
   ],
 };
 
 export const DATE: AnyMaskedOptions = {
-  mask: Date,
-  pattern: "DD/MM/YYYY",
-  format: (value) => date(value).format("DD/MM/YYYY"),
-  parse: (value) => date(value, "DD/MM/YYYY").toDate(),
-  max: new Date(),
   blocks: {
-    YYYY: {
-      mask: IMask.MaskedRange,
-      from: 1970,
-      to: 2030,
-    },
-    MM: {
-      mask: IMask.MaskedRange,
-      from: 1,
-      to: 12,
-    },
     DD: {
-      mask: IMask.MaskedRange,
       from: 1,
+      mask: IMask.MaskedRange,
       to: 31,
     },
+    MM: {
+      from: 1,
+      mask: IMask.MaskedRange,
+      to: 12,
+    },
+    YYYY: {
+      from: 1970,
+      mask: IMask.MaskedRange,
+      to: 2030,
+    },
   },
+  format: (value) => date(value).format("DD/MM/YYYY"),
+  mask: Date,
+  max: new Date(),
+  parse: (value) => date(value, "DD/MM/YYYY").toDate(),
+  pattern: "DD/MM/YYYY",
 };

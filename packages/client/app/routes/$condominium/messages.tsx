@@ -8,7 +8,7 @@ export const meta: MetaFunction = () => ({
 
 export default function DashboardMessages() {
   return (
-    <Page title="Mensagens" subtitle="Social">
+    <Page subtitle="Social" title="Mensagens">
       content
     </Page>
   );

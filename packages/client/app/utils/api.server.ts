@@ -13,8 +13,8 @@ export async function createClient(request: Request, params?: Params<string>, se
   const condominiumID = params?.condominium;
 
   return createTRPCClient<AppRouter>({
-    url: "http://localhost:3333/trpc",
     headers: { Authorization: token ? `Bearer ${token}` : undefined, Condominium: condominiumID },
+    url: "http://localhost:3333/trpc",
   });
 }
 

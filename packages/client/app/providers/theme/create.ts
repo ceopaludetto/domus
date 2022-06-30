@@ -1,61 +1,25 @@
-import type { Palette, Theme } from "@mui/material";
-import type { ColorMode } from "~/utils/types";
 import type {} from "@mui/lab/themeAugmentation";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
-import { responsiveFontSizes, createTheme } from "@mui/material";
+import { experimental_extendTheme as extendTheme } from "@mui/material";
 
 import { darkPalette, lightPalette } from "./palette";
 
-const cache = new Map<ColorMode, Theme>();
-
-export function createApplicationTheme(colorMode: ColorMode) {
-  if (cache.has(colorMode)) return cache.get(colorMode)!;
-
+export function createApplicationTheme() {
   const radius = 2;
-  const palette = (colorMode === "dark" ? darkPalette : lightPalette) as Palette;
 
-  const theme = createTheme({
-    palette,
-    shape: { borderRadius: radius },
-    typography: {
-      fontFamily: "Poppins",
-      fontWeightLight: 300,
-      fontWeightRegular: 400,
-      fontWeightMedium: 500,
-      fontWeightBold: 700,
-    },
+  return extendTheme({
+    colorSchemes: { dark: { palette: darkPalette }, light: { palette: lightPalette } },
     components: {
       MuiButton: {
         defaultProps: {
-          variant: "contained",
           disableElevation: true,
+          variant: "contained",
         },
         styleOverrides: {
           root: {
             textTransform: "none",
           },
-        },
-      },
-      MuiIconButton: {
-        defaultProps: {
-          color: "secondary",
-        },
-      },
-      MuiLoadingButton: {
-        defaultProps: {
-          variant: "contained",
-          disableElevation: true,
-        },
-        styleOverrides: {
-          root: {
-            textTransform: "none",
-          },
-        },
-      },
-      MuiTextField: {
-        defaultProps: {
-          fullWidth: true,
-          variant: "filled",
         },
       },
       MuiFilledInput: {
@@ -69,33 +33,33 @@ export function createApplicationTheme(colorMode: ColorMode) {
           },
         },
       },
-      MuiSwitch: {
+      MuiIconButton: {
+        defaultProps: {
+          color: "secondary",
+        },
+      },
+      MuiLoadingButton: {
+        defaultProps: {
+          disableElevation: true,
+          variant: "contained",
+        },
         styleOverrides: {
           root: {
-            padding: 8,
-          },
-          thumb: {
-            boxShadow: "none",
-            width: 16,
-            height: 16,
-            margin: 2,
-          },
-          track: {
-            borderRadius: 22 / 2,
+            textTransform: "none",
           },
         },
       },
       MuiMenu: {
+        defaultProps: {
+          PaperProps: { elevation: 0, variant: "outlined" },
+        },
         styleOverrides: {
           paper: {
             maxWidth: "100%",
-            width: 200,
             paddingLeft: 8,
             paddingRight: 8,
+            width: 200,
           },
-        },
-        defaultProps: {
-          PaperProps: { variant: "outlined", elevation: 0 },
         },
       },
       MuiMenuItem: {
@@ -107,11 +71,36 @@ export function createApplicationTheme(colorMode: ColorMode) {
           },
         },
       },
+      MuiSwitch: {
+        styleOverrides: {
+          root: {
+            padding: 8,
+          },
+          thumb: {
+            boxShadow: "none",
+            height: 16,
+            margin: 2,
+            width: 16,
+          },
+          track: {
+            borderRadius: 22 / 2,
+          },
+        },
+      },
+      MuiTextField: {
+        defaultProps: {
+          fullWidth: true,
+          variant: "filled",
+        },
+      },
+    },
+    shape: { borderRadius: radius },
+    typography: {
+      fontFamily: "Poppins",
+      fontWeightBold: 700,
+      fontWeightLight: 300,
+      fontWeightMedium: 500,
+      fontWeightRegular: 400,
     },
   });
-
-  const responsive = responsiveFontSizes(theme);
-
-  cache.set(colorMode, responsive);
-  return responsive;
 }

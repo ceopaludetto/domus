@@ -25,13 +25,13 @@ export const users = createRouter()
         });
 
       const user = await prisma.user.update({
+        data: { birthDate, email, firstName, lastName, phone },
         where: { id: ctx.user.id },
-        data: { email, firstName, lastName, birthDate, phone },
       });
 
       const token = createJWTToken(user.id);
 
-      return { user, token };
+      return { token, user };
     },
   })
   .mutation("signup", {
@@ -53,7 +53,7 @@ export const users = createRouter()
 
       const token = createJWTToken(user.id);
 
-      return { user, token };
+      return { token, user };
     },
   })
   .mutation("signin", {
@@ -68,6 +68,6 @@ export const users = createRouter()
 
       const token = createJWTToken(user.id);
 
-      return { user, token };
+      return { token, user };
     },
   });

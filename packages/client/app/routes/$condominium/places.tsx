@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const condominiumID = params.condominium;
   invariant(condominiumID, "Condominium must be setted");
 
-  const places = await getCondominiumPlaces({ request, params });
+  const places = await getCondominiumPlaces({ params, request });
   return json(places);
 };
 
@@ -26,8 +26,8 @@ export default function DashboardPlaces() {
 
   return (
     <Page
-      title="Locais e Eventos"
       subtitle="Visão Geral"
+      title="Locais e Eventos"
       trailing={
         <Stack direction="row" spacing={2}>
           <Button component={Link} to="create" variant="outlined">
@@ -37,10 +37,10 @@ export default function DashboardPlaces() {
         </Stack>
       }
     >
-      <Box sx={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: 2 }}>
+      <Box sx={{ display: "grid", gap: 2, gridTemplateColumns: "repeat(12, 1fr)" }}>
         {places.map((place) => (
-          <Box key={place.id} sx={{ gridColumn: { xs: "span 12", md: "span 4", lg: "span 3" } }}>
-            <Paper variant="outlined" sx={{ p: 2 }}>
+          <Box key={place.id} sx={{ gridColumn: { lg: "span 3", md: "span 4", xs: "span 12" } }}>
+            <Paper sx={{ p: 2 }} variant="outlined">
               {place.name}
             </Paper>
           </Box>

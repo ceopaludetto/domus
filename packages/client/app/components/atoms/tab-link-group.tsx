@@ -11,7 +11,7 @@ export type ITabLinkGroupProps = BoxProps & {
 export function TabLinkGroup({ children, ...rest }: ITabLinkGroupProps) {
   return (
     <Box
-      sx={{ display: "flex", flexDirection: { xs: "row", lg: "column" }, gap: 3, overflowX: "auto", width: "100%" }}
+      sx={{ display: "flex", flexDirection: { lg: "column", xs: "row" }, gap: 3, overflowX: "auto", width: "100%" }}
       {...rest}
     >
       {children}

@@ -1,6 +1,6 @@
 module.exports = {
   extends: ["plugin:regexp/recommended", "prettier"],
-  plugins: ["typescript-sort-keys", "regexp", "prettier"],
+  plugins: ["typescript-sort-keys", "regexp", "sort-keys-fix", "prettier"],
   rules: {
     "prettier/prettier": "error",
     // typescript
@@ -25,5 +25,6 @@ module.exports = {
     // misc
     "no-restricted-syntax": "off",
     "no-continue": "off",
+    "sort-keys-fix/sort-keys-fix": ["warn", "asc", { caseSensitive: false }],
   },
 };

@@ -1,4 +1,3 @@
-import type { ColorMode } from "./utils/types";
 import type { EntryContext } from "@remix-run/node";
 
 import { CacheProvider } from "@emotion/react";
@@ -15,19 +14,13 @@ export default async function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ): Promise<Response> {
-  responseHeaders.append("Vary", "Sec-CH-Prefers-Color-Scheme");
-  responseHeaders.append("Accept-CH", "Sec-CH-Prefers-Color-Scheme");
-  responseHeaders.append("Critical-CH", "Sec-CH-Prefers-Color-Scheme");
-
-  const initialColorMode = (request.headers.get("sec-ch-prefers-color-scheme") ?? "light") as ColorMode;
-
   const cache = createApplicationCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
   const html = renderToString(
     <StrictMode>
       <CacheProvider value={cache}>
-        <ApplicationThemeProvider initialColorMode={initialColorMode}>
+        <ApplicationThemeProvider>
           <RemixServer context={remixContext} url={request.url} />
         </ApplicationThemeProvider>
       </CacheProvider>
@@ -46,13 +39,13 @@ export default async function handleRequest(
 
   // Add the emotion style tags after the insertion point meta tag
   const markup = html.replace(
-    /<meta(\s)*name="emotion-insertion-point"(\s)*content="emotion-insertion-point"(\s)*\/>/,
-    `<meta name="emotion-insertion-point" content="emotion-insertion-point"/>${stylesHTML}`
+    /<meta(\s)*content="emotion-insertion-point"(\s)*name="emotion-insertion-point"(\s)*\/>/,
+    `<meta content="emotion-insertion-point" name="emotion-insertion-point"/>${stylesHTML}`
   );
 
   responseHeaders.set("Content-Type", "text/html");
   return new Response(`<!DOCTYPE html>${markup}`, {
-    status: responseStatusCode,
     headers: responseHeaders,
+    status: responseStatusCode,
   });
 }

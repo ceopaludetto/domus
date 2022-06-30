@@ -20,19 +20,19 @@ export function Sidebar({ sx, user, condominiums, PaperProps, ...rest }: ISideba
   const renderItems = useCallback(
     () => (
       <>
-        <Stack sx={{ flex: 1 }} spacing={1.25} direction="column">
+        <Stack direction="column" spacing={1.25} sx={{ flex: 1 }}>
           <SidebarCondominium />
           <Divider />
-          <SidebarLink to="" icon={LayoutDashboard}>
+          <SidebarLink icon={LayoutDashboard} to="">
             Início
           </SidebarLink>
-          <SidebarLink to="messages" icon={MessageCircle}>
+          <SidebarLink icon={MessageCircle} to="messages">
             Mensagens
           </SidebarLink>
-          <SidebarLink to="places" icon={MapPin} end={false}>
+          <SidebarLink end={false} icon={MapPin} to="places">
             Locais e Eventos
           </SidebarLink>
-          <SidebarLink to="settings" icon={Sliders} end={false}>
+          <SidebarLink end={false} icon={Sliders} to="settings">
             Ajustes
           </SidebarLink>
         </Stack>
@@ -45,13 +45,13 @@ export function Sidebar({ sx, user, condominiums, PaperProps, ...rest }: ISideba
   return (
     <>
       <Drawer
+        sx={{ display: { md: "block", xs: "none" }, gridArea: "sidebar", ...sx }}
         variant="permanent"
-        sx={{ gridArea: "sidebar", display: { xs: "none", md: "block" }, ...sx }}
         PaperProps={{
           elevation: 0,
           sx: {
-            p: 3,
             maxWidth: 350,
+            p: 3,
             width: "100%",
           },
           ...PaperProps,
@@ -61,15 +61,15 @@ export function Sidebar({ sx, user, condominiums, PaperProps, ...rest }: ISideba
         {renderItems()}
       </Drawer>
       <Drawer
-        open={open}
         onClose={() => toggleSidebar()}
+        open={open}
+        sx={{ display: { md: "none" }, gridArea: "sidebar", ...sx }}
         variant="temporary"
-        sx={{ gridArea: "sidebar", display: { md: "none" }, ...sx }}
         PaperProps={{
           elevation: 0,
           sx: {
-            p: 3,
             maxWidth: 350,
+            p: 3,
             width: "80%",
           },
           ...PaperProps,

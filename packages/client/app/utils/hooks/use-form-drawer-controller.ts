@@ -26,5 +26,5 @@ export function useFormDrawerController(): IUseFormDrawerControllerProps {
     if (data) setOpen(false);
   }, [data]);
 
-  return { open, handleClose, handleTransitionEnd };
+  return { handleClose, handleTransitionEnd, open };
 }

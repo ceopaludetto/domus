@@ -7,9 +7,9 @@ import { getUserByID, getUserCondominiums } from "~/models";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
-    name: "__session",
     httpOnly: true,
     maxAge: 0,
+    name: "__session",
     path: "/",
     sameSite: "lax",
     secrets: ["SomeRandomSecret@123"],
@@ -44,7 +44,7 @@ export async function getUser(request: Request) {
   const id = await getUserID(request);
   if (!id) return null;
 
-  const user = await getUserByID({ request, data: id });
+  const user = await getUserByID({ data: id, request });
   if (user) return user;
 
   throw logout(request);
@@ -78,7 +78,7 @@ export async function requireUserID(request: Request, redirectTo = new URL(reque
 export async function requireUser(request: Request) {
   const id = await requireUserID(request);
 
-  const user = await getUserByID({ request, data: id });
+  const user = await getUserByID({ data: id, request });
   if (user) return user;
 
   throw logout(request);

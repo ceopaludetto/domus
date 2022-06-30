@@ -10,8 +10,8 @@ export const getCondominiumPlaces = withClient(async (client) => client.query("p
 
 export const createPlace = withClient(async (client, { name, capacity }: IPlaceValues): Result<Place> => {
   const place = await client.mutation("place.create", {
-    name,
     capacity,
+    name,
   });
 
   return { data: place, error: null };
